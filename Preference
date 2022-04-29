@@ -1,0 +1,13 @@
+name: Jack
+Medical Condition Type: 2
+pref: when 20 suggest shops
+pref: when 30 suggest pool
+pref: when APO suggest bowling
+pref: when weather suggest cinema
+***
+name: David
+Medical Condition Type: 3
+pref: when 16 suggest pool
+pref: when APO suggest cinema
+pref: when weather suggest shops
+***

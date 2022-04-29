@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+dependencies {
+    implementation 'junit:junit:4.13.2'
+    implementation 'com.zeroc:ice:3.7.7'
+    implementation 'com.zeroc:icestorm:3.7.7'
+}
