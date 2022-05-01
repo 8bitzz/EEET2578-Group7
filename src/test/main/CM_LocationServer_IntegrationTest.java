@@ -14,9 +14,4 @@ public class CM_LocationServer_IntegrationTest {
         SetupTest.setupService();
     }
 
-    @Test
-    public void testGetLocationsByService() {
-        List<String> restaurantLocations = ContextManager.getLocationsByService("restaurants");
-        assertEquals(2, restaurantLocations.size());
-    }
 }

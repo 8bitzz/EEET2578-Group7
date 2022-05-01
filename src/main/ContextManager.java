@@ -261,7 +261,7 @@ public class ContextManager {
 		thread.start();
 	}
 
-	private static void checkWeather(Integer currentWeather){
+	public static void checkWeather(Integer currentWeather){
 		if (currentWeather != NORMAL){
 			alerters.forEach((username,alerter)->{
 				PreferenceRequest request = new PreferenceRequest(username, currentWeather, null);
@@ -328,7 +328,7 @@ public class ContextManager {
 		return temperature >= Collections.min(tempThreshholds);
 	}
 
-	private static Integer calculateapoThreshhold(User user) {
+	public static Integer calculateapoThreshhold(User user) {
 		Integer medicalConditionType = user.medicalConditionType;
 		Integer aqi = user.sensorData.aqi;
 		Integer result = null;
