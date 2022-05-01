@@ -6,29 +6,29 @@ import helper.User;
 public class UserFactory {
 
     static User buildUserType1GoodAQI() {
-        SensorData data = new SensorData("Harry", "C", 30, 50);
+        SensorData data = new SensorData("Harry", "C", 25, 50);
         int[] tempThreshholds = {20, 30};
-        int apoThreshhold = 15;
-        return new User(1, tempThreshholds, apoThreshhold, 1, data, 0, false, true);
+        int apoThreshhold = 30;
+        return new User(1, tempThreshholds, apoThreshhold, 30, data, 0, false, true);
     }
 
     static User buildUserType1ModerateAQI() {
-        SensorData data = new SensorData("Ron", "C", 30, 100);
+        SensorData data = new SensorData("Ron", "C", 15, 100);
         int[] tempThreshholds = {20, 30};
         int apoThreshhold = 15;
-        return new User(1, tempThreshholds, apoThreshhold, 1, data, 0, false, true);
+        return new User(1, tempThreshholds, apoThreshhold, 14, data, 0, false, true);
     }
 
     static User buildUserType1SensitiveAQI() {
-        SensorData data = new SensorData("Hermione", "C", 30, 150);
-        int[] tempThreshholds = {20, 30};
+        SensorData data = new SensorData("Hermione", "C", 20, 150);
+        int[] tempThreshholds = {-20, 30};
         int apoThreshhold = 15;
         return new User(1, tempThreshholds, apoThreshhold, 1, data, 0, false, true);
     }
 
     static User buildUserType1UnhealthyAQI() {
         SensorData data = new SensorData("Ginny", "C", 30, 200);
-        int[] tempThreshholds = {20, 30};
+        int[] tempThreshholds = {};
         int apoThreshhold = 15;
         return new User(1, tempThreshholds, apoThreshhold, 1, data, 0, false, true);
     }

@@ -318,11 +318,11 @@ public class ContextManager {
 		users.get(username).clock += 1;
 	}
 
-	private static boolean checkapoReached(User user) {
+	public static boolean checkapoReached(User user) {
 		return user.clock == user.apoThreshhold;
 	}
 
-	private static boolean checkTempReached(User user) {
+	public static boolean checkTempReached(User user) {
 		int temperature = user.sensorData.temperature;
 		List<Integer> tempThreshholds = Arrays.stream(user.tempThreshholds).boxed().collect(Collectors.toList());
 		return temperature >= Collections.min(tempThreshholds);

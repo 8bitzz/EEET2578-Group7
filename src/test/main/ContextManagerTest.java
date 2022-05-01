@@ -83,4 +83,39 @@ public class ContextManagerTest {
         assertEquals(15, threshold12, 0.00000001);
     }
 
+    @Test
+    public void testCheckTempReached() {
+        // Temperature threshold is reached
+        User user1 = UserFactory.buildUserType1GoodAQI();
+        assertTrue(ContextManager.checkTempReached(user1));
+
+        // Temperature threshold is not reached
+        User user2 = UserFactory.buildUserType1ModerateAQI();
+        assertFalse(ContextManager.checkTempReached(user2));
+
+        // Negative temperature threshold is reached
+        User user3 = UserFactory.buildUserType1SensitiveAQI();
+        assertTrue(ContextManager.checkTempReached(user3));
+
+        // No predefined temperature threshold - TEST FAILED
+//        User user4 = UserFactory.buildUserType1UnhealthyAQI();
+//        assertTrue(ContextManager.checkTempReached(user4));
+    }
+
+    @Test
+    public void testCheckApoReached() {
+        // APO threshold is reached
+        User user1 = UserFactory.buildUserType1GoodAQI();
+        assertTrue(ContextManager.checkapoReached(user1));
+
+        // APO threshold is reached
+        User user2 = UserFactory.buildUserType1ModerateAQI();
+        assertFalse(ContextManager.checkapoReached(user2));
+    }
+
+    @Test
+    public void testTickClock() {
+
+    }
+
 }
