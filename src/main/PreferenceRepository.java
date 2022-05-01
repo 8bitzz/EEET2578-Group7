@@ -14,7 +14,7 @@ import helper.User;
 import support.Preference;
 
 public class PreferenceRepository {
-	private static List<Preference> preferences;
+	public static List<Preference> preferences;
 	private static final String APO = "APO";
 	private static final String WEATHER = "weather";
 	private static final Integer NORMAL = 0;
@@ -94,7 +94,7 @@ public class PreferenceRepository {
 		adapter.activate();
 	}
 
-	private static List<Preference> readPreference() {
+	public static List<Preference> readPreference() {
 		List<Preference> result = new ArrayList<>();
 		File file = new File("Preference");
 		try {
@@ -117,7 +117,7 @@ public class PreferenceRepository {
 		return result;
 	}
 
-	private static String getSuggestionTemp(String name, Integer tempThreshhold) {
+	public static String getSuggestionTemp(String name, Integer tempThreshhold) {
 		String result = null;
 		Integer distance = Integer.MAX_VALUE;
 		for (Preference preference : preferences) {
@@ -140,7 +140,7 @@ public class PreferenceRepository {
 		return result;
 	}
 
-	private static String getSuggestionAPO(String name) {
+	public static String getSuggestionAPO(String name) {
 		String result = null;
 		for (Preference preference : preferences) {
 			if (preference.getName().equals(name)) {
@@ -157,8 +157,8 @@ public class PreferenceRepository {
 		}
 		return result;
 	}
-	
-	private static String getSuggestionWeather(String name, Integer weather) {
+
+	public static String getSuggestionWeather(String name, Integer weather) {
 		String result = null;
 		for (Preference preference : preferences) {
 			if (preference.getName().equals(name)) {

@@ -166,7 +166,7 @@ public class ContextManager {
 		System.exit(0);
 	}
 
-	private static void setupAlerter(String username) {
+	public static void setupAlerter(String username) {
 		String topicName = username + "-alerts";
 		com.zeroc.Ice.ObjectPrx obj = communicator.stringToProxy("IceStorm/TopicManager:tcp -p 10000");
 		com.zeroc.IceStorm.TopicManagerPrx topicManager = com.zeroc.IceStorm.TopicManagerPrx.checkedCast(obj);
@@ -272,7 +272,7 @@ public class ContextManager {
 			});
 		}
 	}
-	
+
 	public static List<LocationDetails> readCityInfo() {
 		List<LocationDetails> result = new ArrayList<>();
 		File file = new File("CityInfo");
