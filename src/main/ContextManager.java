@@ -22,22 +22,22 @@ import helper.*;
 import support.LocationDetails;
 
 public class ContextManager {
-	private static List<LocationDetails> cityInfo;
-	private static Integer currentWeather;
-	private static LocationWorkerPrx locationWorker;
-	private static PreferenceWorkerPrx preferenceWorker;
-	private static WeatherAlarmWorkerPrx weatherAlarmWorker;
-	private static Communicator communicator;
-	private static LinkedHashMap<String, TopicPrx> subcribers = new LinkedHashMap<>();
-	private static LinkedHashMap<String, ObjectPrx> proxies = new LinkedHashMap<>();
-	private static LinkedHashMap<String, User> users = new LinkedHashMap<>();
-	private static LinkedHashMap<String, AlerterPrx> alerters = new LinkedHashMap<>();
-	private static final String INDOOR = "Indoor";
-	private static final String OUTDOOR = "Outdoor";
-	private static final String APO = "APO";
-	private static final String TEMPERATURE = "Temperature";
-	private static final String WEATHER = "Weather";
-	private static final Integer NORMAL = 0;
+	public static List<LocationDetails> cityInfo;
+	public static Integer currentWeather;
+	public static LocationWorkerPrx locationWorker;
+	public static PreferenceWorkerPrx preferenceWorker;
+	public static WeatherAlarmWorkerPrx weatherAlarmWorker;
+	public static Communicator communicator;
+	public static LinkedHashMap<String, TopicPrx> subcribers = new LinkedHashMap<>();
+	public static LinkedHashMap<String, ObjectPrx> proxies = new LinkedHashMap<>();
+	public static LinkedHashMap<String, User> users = new LinkedHashMap<>();
+	public static LinkedHashMap<String, AlerterPrx> alerters = new LinkedHashMap<>();
+	public static final String INDOOR = "Indoor";
+	public static final String OUTDOOR = "Outdoor";
+	public static final String APO = "APO";
+	public static final String TEMPERATURE = "Temperature";
+	public static final String WEATHER = "Weather";
+	public static final Integer NORMAL = 0;
 	
 	public static class MonitorI implements Monitor {
 		@Override
@@ -92,10 +92,10 @@ public class ContextManager {
 			}
 			user.apoReached = apoReached;
 			user.tempReached = tempReached;
-			//System.out.println(username + " --Weather: " + currentWeather + "  --Location: " + user.sensorData.location + "  --Location Status:"
-				//	+ currentLocationStatus + "  --aqi: " + user.sensorData.aqi + "  --apoThreshhold: "
-					//+ user.apoThreshhold + "  --Temperature: " + user.sensorData.temperature + "  --Clock: "
-					//+ user.clock);
+			System.out.println(username + " --Weather: " + currentWeather + "  --Location: " + user.sensorData.location + "  --Location Status:"
+					+ currentLocationStatus + "  --aqi: " + user.sensorData.aqi + "  --apoThreshhold: "
+					+ user.apoThreshhold + "  --Temperature: " + user.sensorData.temperature + "  --Clock: "
+					+ user.clock);
 		}
 	}
 	
@@ -166,7 +166,7 @@ public class ContextManager {
 		System.exit(0);
 	}
 
-	private static void setupAlerter(String username) {
+	public static void setupAlerter(String username) {
 		String topicName = username + "-alerts";
 		com.zeroc.Ice.ObjectPrx obj = communicator.stringToProxy("IceStorm/TopicManager:tcp -p 10000");
 		com.zeroc.IceStorm.TopicManagerPrx topicManager = com.zeroc.IceStorm.TopicManagerPrx.checkedCast(obj);
@@ -219,29 +219,29 @@ public class ContextManager {
 		}
 	}
 
-	private static void setupContextManagerWorker() {
+	static void setupContextManagerWorker() {
 		com.zeroc.Ice.ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("ContextManagerWorker",
 				"default -p 13333");
 		adapter.add(new ContextManagerWorkerI(), com.zeroc.Ice.Util.stringToIdentity("ContextManagerWorker"));
 		adapter.activate();
 	}
 
-	private static void iniPreferenceWorker() {
+	static void iniPreferenceWorker() {
 		com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("PreferenceWorker:default -p 14444");
 		preferenceWorker = PreferenceWorkerPrx.checkedCast(base);
 	}
 
-	private static void iniLocationMapper() {
+	static void iniLocationMapper() {
 		com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("LocationWorker:default -p 11111");
 		locationWorker = LocationWorkerPrx.checkedCast(base);
 	}
 	
-	private static void iniWeatherAlarmWorker() {
+	static void iniWeatherAlarmWorker() {
 		com.zeroc.Ice.ObjectPrx base = communicator.stringToProxy("WeatherAlarmWorker:default -p 15555");
 		weatherAlarmWorker = WeatherAlarmWorkerPrx.checkedCast(base);
 	}
 	
-	private static void runWeatherAlarm() {
+	static void runWeatherAlarm() {
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -272,8 +272,8 @@ public class ContextManager {
 			});
 		}
 	}
-	
-	private static List<LocationDetails> readCityInfo() {
+
+	public static List<LocationDetails> readCityInfo() {
 		List<LocationDetails> result = new ArrayList<>();
 		File file = new File("CityInfo");
 		int count = 0;
@@ -297,7 +297,7 @@ public class ContextManager {
 		return result;
 	}
 
-	private static List<String> getLocationsByService(String service) {
+	public static List<String> getLocationsByService(String service) {
 		List<String> result = new ArrayList<>();
 		for (LocationDetails locationDetails : cityInfo) {
 			if (locationDetails.getServices().contains(service)) {

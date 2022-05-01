@@ -9,7 +9,7 @@ import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.Current;
 
 public class LocationServer {
-	private static LinkedHashMap<String, String> table;
+	public static LinkedHashMap<String, String> table;
 	private static Communicator communicator;
 
 	public static class LocationWorkerI implements helper.LocationWorker {
@@ -43,7 +43,7 @@ public class LocationServer {
 		adapter.activate();
 	}
 
-	private static LinkedHashMap<String, String> readConfig() {
+	public static LinkedHashMap<String, String> readConfig() {
 		File file = new File("LocationServerConfig");
 		LinkedHashMap<String, String> result = new LinkedHashMap<>();
 		try {
