@@ -115,7 +115,17 @@ public class ContextManagerTest {
 
     @Test
     public void testTickClock() {
+        int duration = 5;
+        for (int i = 0; i < 5; i++) {
+            ContextManager.tickClock("Jack");
+        }
+        assertEquals(duration, ContextManager.users.get("Jack").clock, 0.0000000001);
+    }
 
+    @Test
+    public void testResetClock() {
+        ContextManager.resetClock("Jack");
+        assertEquals(0, ContextManager.users.get("Jack").clock, 0.0000000001);
     }
 
 }

@@ -310,11 +310,11 @@ public class ContextManager {
 		return result;
 	}
 
-	private static void resetClock(String username) {
+	public static void resetClock(String username) {
 		users.get(username).clock = 0;
 	}
 
-	private static void tickClock(String username) {
+	public static void tickClock(String username) {
 		users.get(username).clock += 1;
 	}
 
