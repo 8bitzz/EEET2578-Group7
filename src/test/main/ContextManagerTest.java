@@ -1,5 +1,6 @@
 package main;
 
+import helper.ContextManagerWorker;
 import helper.SensorData;
 import helper.User;
 import org.junit.BeforeClass;
@@ -9,8 +10,9 @@ import support.LocationDetails;
 import java.util.List;
 import static org.junit.Assert.*;
 
-public class ContextManagerTest {
 
+public class ContextManagerTest {
+    public static final Integer NORMAL = 0;
     @BeforeClass
     public static void setUpClass() {
         SetupTest.setupService();
@@ -127,5 +129,12 @@ public class ContextManagerTest {
         ContextManager.resetClock("Jack");
         assertEquals(0, ContextManager.users.get("Jack").clock, 0.0000000001);
     }
+    @Test
+    public void testCheckWeather(){
+        ContextManager.checkWeather(NORMAL);
+    }
+    @Test
+    public void testCheckAddUser(){
 
+    }
 }
