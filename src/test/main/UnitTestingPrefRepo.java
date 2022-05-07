@@ -43,8 +43,7 @@ public class UnitTestingPrefRepo {
     @Test
     public void testGettingSuggestionTemp () {
         System.out.println("Test getting temperature suggestion from Preference Repository");
-        List<Preference> preferences = PreferenceRepository.readPreference();
-        PreferenceRepository.preferences = preferences;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
         assertEquals(temperatureSuggestion, PreferenceRepository.getSuggestionTemp(username , temperature));
         System.out.println("Expected output: " + temperatureSuggestion);
         System.out.println("Actual output: " +PreferenceRepository.getSuggestionTemp(username , temperature) );
@@ -53,8 +52,7 @@ public class UnitTestingPrefRepo {
     @Test
     public void testGettingSuggestionWeather () {
         System.out.println("Test getting weather suggestion from Preference Repository");
-        List<Preference> preferences = PreferenceRepository.readPreference();
-        PreferenceRepository.preferences = preferences;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
         assertEquals(weatherSuggestion , PreferenceRepository.getSuggestionWeather(username , weather));
         System.out.println("Expected output: " + weatherSuggestion);
         System.out.println("Actual output: " +PreferenceRepository.getSuggestionWeather(username , weather) );
@@ -62,10 +60,8 @@ public class UnitTestingPrefRepo {
 
     @Test
     public void testGettingSuggestionAPO () {
-        System.out.println("------------------------");
         System.out.println("Test getting temperature suggestion from Preference Repository");
-        List<Preference> preferences = PreferenceRepository.readPreference();
-        PreferenceRepository.preferences = preferences;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
         assertEquals(apoSuggestion , PreferenceRepository.getSuggestionAPO(username ));
         System.out.println("Expected output:" + apoSuggestion);
         System.out.println("Actual output: " +PreferenceRepository.getSuggestionAPO(username) );
@@ -73,29 +69,28 @@ public class UnitTestingPrefRepo {
 
     @Test
     public void testReadPreference() {
-        System.out.println("-----------------------------");
         System.out.println("Test the reading preference file in Preference Repository class");
         List<Preference> expectedResult = new ArrayList<>();
-        List<String> jackPreference = new ArrayList<>();
-        jackPreference.add("name: Jack");
-        jackPreference.add("Medical Condition Type: 1");
-        jackPreference.add("pref: when 30 suggest pool");
-        jackPreference.add("pref: when APO suggest cinema");
-        jackPreference.add("pref: when weather suggest cinema");
+        List<String> jackPref = new ArrayList<>();
+        jackPref.add("name: Jack");
+        jackPref.add("Medical Condition Type: 1");
+        jackPref.add("pref: when 30 suggest pool");
+        jackPref.add("pref: when APO suggest cinema");
+        jackPref.add("pref: when weather suggest cinema");
 
-        List<String> davidPreference = new ArrayList<>();
-        davidPreference.add("name: David");
-        davidPreference.add("Medical Condition Type: 3");
-        davidPreference.add("pref: when 16 suggest pool");
-        davidPreference.add("pref: when APO suggest cinema");
-        davidPreference.add("pref: when weather suggest shops");
+        List<String> davidPref = new ArrayList<>();
+        davidPref.add("name: David");
+        davidPref.add("Medical Condition Type: 3");
+        davidPref.add("pref: when 16 suggest pool");
+        davidPref.add("pref: when APO suggest cinema");
+        davidPref.add("pref: when weather suggest shops");
 
 
-        expectedResult.add(new Preference(jackPreference));
-        expectedResult.add(new Preference(davidPreference));
+        expectedResult.add(new Preference(jackPref));
+        expectedResult.add(new Preference(davidPref));
 
         assertEquals(expectedResult.toString() , PreferenceRepository.readPreference().toString());
-        System.out.println("Expected output: " + expectedResult.toString());
-        System.out.println("Actual output: " + PreferenceRepository.readPreference().toString());
+        System.out.println("Expected output: " + expectedResult);
+        System.out.println("Actual output: " + PreferenceRepository.readPreference());
     }
 }
