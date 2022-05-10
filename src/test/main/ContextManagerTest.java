@@ -134,7 +134,36 @@ public class ContextManagerTest {
         ContextManager.checkWeather(NORMAL);
     }
     @Test
-    public void testCheckAddUser(){
+    public void testAddUser(){
+        ContextManagerWorker CM_Worker;
+//        ContextManager.communicator = com.zeroc.Ice.Util.initialize();
+//        ContextManager.cityInfo = ContextManager.readCityInfo();
+//        ContextManager.iniPreferenceWorker();
+//        ContextManager.iniLocationMapper();
+//        ContextManager.iniWeatherAlarmWorker();
+//        ContextManager.runWeatherAlarm();
+//        ContextManager.setupContextManagerWorker();
+        CM_Worker = new ContextManager.ContextManagerWorkerI();
+        int beforeAddedSize = ContextManager.users.size();
+//        System.out.println("Before added" + ContextManager.users.size());
+        CM_Worker.addUser("Minh", null);
+        assertEquals(ContextManager.users.size(),beforeAddedSize+1);
+    }
 
+    @Test
+    public void testDeleteUser(){
+        ContextManagerWorker CM_Worker;
+//        ContextManager.communicator = com.zeroc.Ice.Util.initialize();
+//        ContextManager.cityInfo = ContextManager.readCityInfo();
+//        ContextManager.iniPreferenceWorker();
+//        ContextManager.iniLocationMapper();
+//        ContextManager.iniWeatherAlarmWorker();
+//        ContextManager.runWeatherAlarm();
+//        ContextManager.setupContextManagerWorker();
+        CM_Worker = new ContextManager.ContextManagerWorkerI();
+        int beforeAddedSize = ContextManager.users.size();
+        System.out.println("Before deleted" + ContextManager.users.size());
+        CM_Worker.deleteUser("Jack", null);
+        assertEquals(ContextManager.users.size(),beforeAddedSize-1);
     }
 }
