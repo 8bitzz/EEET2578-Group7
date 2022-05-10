@@ -261,7 +261,7 @@ public class ContextManager {
 		thread.start();
 	}
 
-	private static void checkWeather(Integer currentWeather){
+	public static void checkWeather(Integer currentWeather){
 		if (currentWeather != NORMAL){
 			alerters.forEach((username,alerter)->{
 				PreferenceRequest request = new PreferenceRequest(username, currentWeather, null);
@@ -310,25 +310,25 @@ public class ContextManager {
 		return result;
 	}
 
-	private static void resetClock(String username) {
+	public static void resetClock(String username) {
 		users.get(username).clock = 0;
 	}
 
-	private static void tickClock(String username) {
+	public static void tickClock(String username) {
 		users.get(username).clock += 1;
 	}
 
-	private static boolean checkapoReached(User user) {
+	public static boolean checkapoReached(User user) {
 		return user.clock == user.apoThreshhold;
 	}
 
-	private static boolean checkTempReached(User user) {
+	public static boolean checkTempReached(User user) {
 		int temperature = user.sensorData.temperature;
 		List<Integer> tempThreshholds = Arrays.stream(user.tempThreshholds).boxed().collect(Collectors.toList());
 		return temperature >= Collections.min(tempThreshholds);
 	}
 
-	private static Integer calculateapoThreshhold(User user) {
+	public static Integer calculateapoThreshhold(User user) {
 		Integer medicalConditionType = user.medicalConditionType;
 		Integer aqi = user.sensorData.aqi;
 		Integer result = null;

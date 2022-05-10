@@ -1,5 +1,8 @@
 package main;
 
+import com.zeroc.IceStorm.AlreadySubscribed;
+import com.zeroc.IceStorm.BadQoS;
+import com.zeroc.IceStorm.InvalidSubscriber;
 import helper.ContextManagerWorker;
 import helper.*;
 
@@ -7,7 +10,6 @@ public class SetupTest {
 
     static Boolean isAlreadySetup = false;
     private static ContextManagerWorker CM_Worker;
-    private static String username;
 
     static void setupService() {
 
@@ -15,8 +17,6 @@ public class SetupTest {
             return;
         }
 
-        //executed only once, before the first test
-        username = "Jack";
         ContextManager.communicator = com.zeroc.Ice.Util.initialize();
         ContextManager.cityInfo = ContextManager.readCityInfo();
         ContextManager.iniPreferenceWorker();
@@ -25,8 +25,11 @@ public class SetupTest {
         ContextManager.runWeatherAlarm();
         ContextManager.setupContextManagerWorker();
         CM_Worker = new ContextManager.ContextManagerWorkerI();
-        CM_Worker.addUser(username, null);
+        CM_Worker.addUser("Jack", null);
+        CM_Worker.addUser("David", null);
 
         SetupTest.isAlreadySetup = true;
     }
+
+
 }
