@@ -71,7 +71,7 @@ public class AllSensors {
 		monitor = MonitorPrx.uncheckedCast(pub);
 	}
 
-	private SensorData getSensorData() {
+	public SensorData getSensorData() {
 		System.out.println("----------Get sensor data--------");
 		String location = this.locationSensor.getCurrentValue();
 		int temperature = Integer.parseInt(this.temperatureSensor.getCurrentValue());
