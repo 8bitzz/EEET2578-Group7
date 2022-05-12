@@ -32,11 +32,14 @@ public class LocationServerTest {
 
     @Test
     public void testCheckLSReadInfo() {
-//        locationTable = LocationServer.table;
-//
-//        for (int i = 0; i < 4; i++) {
-//            String locationStatus = ContextManager.locationWorker.locationMapping(cityInfo.get(i).getLocation());
-//            assertEquals(expected_status[i], locationStatus);
-//        }
+        locationTable = LocationServer.readConfig();
+        List<LocationDetails> cityInfo = ContextManager.readCityInfo();
+        String[] expected_status = {INDOOR, INDOOR, OUTDOOR, OUTDOOR};
+
+        assertEquals(4, cityInfo.size());
+        for (int i = 0; i < 4; i++) {
+            String locationStatus = locationTable.get(cityInfo.get(i).getLocation());
+            assertEquals(expected_status[i], locationStatus);
+        }
     }
 }
