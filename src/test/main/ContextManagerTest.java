@@ -118,7 +118,7 @@ public class ContextManagerTest {
     @Test
     public void testTickClock() {
         int duration = 5;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < duration; i++) {
             ContextManager.tickClock("Jack");
         }
         assertEquals(duration, ContextManager.users.get("Jack").clock, 0.0000000001);
@@ -126,15 +126,48 @@ public class ContextManagerTest {
 
     @Test
     public void testResetClock() {
-        ContextManager.resetClock("Jack");
-        assertEquals(0, ContextManager.users.get("Jack").clock, 0.0000000001);
+        int duration = 5;
+        for (int i = 0; i < duration; i++) {
+            ContextManager.tickClock("David");
+        }
+        ContextManager.resetClock("David");
+        assertEquals(0, ContextManager.users.get("David").clock, 0.0000000001);
     }
     @Test
     public void testCheckWeather(){
         ContextManager.checkWeather(NORMAL);
     }
     @Test
-    public void testCheckAddUser(){
+    public void testAddUser(){
+        ContextManagerWorker CM_Worker;
+//        ContextManager.communicator = com.zeroc.Ice.Util.initialize();
+//        ContextManager.cityInfo = ContextManager.readCityInfo();
+//        ContextManager.iniPreferenceWorker();
+//        ContextManager.iniLocationMapper();
+//        ContextManager.iniWeatherAlarmWorker();
+//        ContextManager.runWeatherAlarm();
+//        ContextManager.setupContextManagerWorker();
+        CM_Worker = new ContextManager.ContextManagerWorkerI();
+        int beforeAddedSize = ContextManager.users.size();
+//        System.out.println("Before added" + ContextManager.users.size());
+        CM_Worker.addUser("Minh", null);
+        assertEquals(ContextManager.users.size(),beforeAddedSize+1);
+    }
 
+    @Test
+    public void testDeleteUser(){
+        ContextManagerWorker CM_Worker;
+//        ContextManager.communicator = com.zeroc.Ice.Util.initialize();
+//        ContextManager.cityInfo = ContextManager.readCityInfo();
+//        ContextManager.iniPreferenceWorker();
+//        ContextManager.iniLocationMapper();
+//        ContextManager.iniWeatherAlarmWorker();
+//        ContextManager.runWeatherAlarm();
+//        ContextManager.setupContextManagerWorker();
+        CM_Worker = new ContextManager.ContextManagerWorkerI();
+        int beforeAddedSize = ContextManager.users.size();
+        System.out.println("Before deleted" + ContextManager.users.size());
+        CM_Worker.deleteUser("Jack", null);
+        assertEquals(ContextManager.users.size(),beforeAddedSize-1);
     }
 }

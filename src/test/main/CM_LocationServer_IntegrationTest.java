@@ -39,4 +39,27 @@ public class CM_LocationServer_IntegrationTest {
             }
         }
     }
+    @Test
+    public void testLocationSuggestion3(){
+        String service = "cinema";
+        List<LocationDetails> cityInfo = ContextManager.readCityInfo();
+        List<String> locations = ContextManager.getLocationsByService(service);
+        for (LocationDetails locationDetails : cityInfo){
+            for (String location : locations){
+                if (locationDetails.getName().equals(location))
+                    assertTrue(locationDetails.getServices().contains(service));
+            }
+        }
+    }@Test
+    public void testLocationSuggestion4(){
+        String service = "bowling";
+        List<LocationDetails> cityInfo = ContextManager.readCityInfo();
+        List<String> locations = ContextManager.getLocationsByService(service);
+        for (LocationDetails locationDetails : cityInfo){
+            for (String location : locations){
+                if (locationDetails.getName().equals(location))
+                    assertTrue(locationDetails.getServices().contains(service));
+            }
+        }
+    }
 }
