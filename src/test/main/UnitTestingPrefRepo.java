@@ -32,11 +32,11 @@ public class UnitTestingPrefRepo {
     public static Collection data () {
 
         return Arrays.asList(new Object[][] {
-                {"Jack" , 30 , 0 , "pool" , "cinema" , null},
-                {"Jack" , 30 , 1 , "pool", "cinema" , "cinema"},
-                {"Jack" , 30 , 2 , "pool", "cinema" , "cinema"},
-                {"Jack" , 30 , 3 , "pool", "cinema" , "cinema"},
-                {"Jack" , 30 , 4 , "pool", "cinema" , "cinema"},
+                {"Jack" , 30 , 0 , "pool", "bowling" , "cinema"},
+                {"Jack" , 30 , 1 , "pool", "bowling" , "cinema"},
+                {"Jack" , 30 , 2 , "pool", "bowling" , "cinema"},
+                {"Jack" , 30 , 3 , "pool", "bowling" , "cinema"},
+                {"Jack" , 30 , 4 , "pool", "bowling" , "cinema"},
         });
     }
 
@@ -46,36 +46,40 @@ public class UnitTestingPrefRepo {
         PreferenceRepository.preferences = PreferenceRepository.readPreference();
         assertEquals(temperatureSuggestion, PreferenceRepository.getSuggestionTemp(username , temperature));
         System.out.println("Expected output: " + temperatureSuggestion);
-        System.out.println("Actual output: " +PreferenceRepository.getSuggestionTemp(username , temperature) );
+        System.out.println("Real output: " +PreferenceRepository.getSuggestionTemp(username , temperature) );
     }
 
     @Test
     public void testGettingSuggestionWeather () {
+        System.out.println("-----------------------------------------------------------");
         System.out.println("Test getting weather suggestion from Preference Repository");
         PreferenceRepository.preferences = PreferenceRepository.readPreference();
         assertEquals(weatherSuggestion , PreferenceRepository.getSuggestionWeather(username , weather));
         System.out.println("Expected output: " + weatherSuggestion);
-        System.out.println("Actual output: " +PreferenceRepository.getSuggestionWeather(username , weather) );
+        System.out.println("Real output: " +PreferenceRepository.getSuggestionWeather(username , weather) );
     }
 
     @Test
     public void testGettingSuggestionAPO () {
+        System.out.println("-----------------------------------------------------------");
         System.out.println("Test getting temperature suggestion from Preference Repository");
         PreferenceRepository.preferences = PreferenceRepository.readPreference();
         assertEquals(apoSuggestion , PreferenceRepository.getSuggestionAPO(username ));
         System.out.println("Expected output:" + apoSuggestion);
-        System.out.println("Actual output: " +PreferenceRepository.getSuggestionAPO(username) );
+        System.out.println("Real output: " +PreferenceRepository.getSuggestionAPO(username) );
     }
 
     @Test
     public void testReadPreference() {
+        System.out.println("-----------------------------------------------------------");
         System.out.println("Test the reading preference file in Preference Repository class");
         List<Preference> expectedResult = new ArrayList<>();
         List<String> jackPref = new ArrayList<>();
         jackPref.add("name: Jack");
-        jackPref.add("Medical Condition Type: 1");
+        jackPref.add("Medical Condition Type: 2");
+        jackPref.add("pref: when 20 suggest shops");
         jackPref.add("pref: when 30 suggest pool");
-        jackPref.add("pref: when APO suggest cinema");
+        jackPref.add("pref: when APO suggest bowling");
         jackPref.add("pref: when weather suggest cinema");
 
         List<String> davidPref = new ArrayList<>();
@@ -91,6 +95,6 @@ public class UnitTestingPrefRepo {
 
         assertEquals(expectedResult.toString() , PreferenceRepository.readPreference().toString());
         System.out.println("Expected output: " + expectedResult);
-        System.out.println("Actual output: " + PreferenceRepository.readPreference());
+        System.out.println("Real output: " + PreferenceRepository.readPreference());
     }
 }

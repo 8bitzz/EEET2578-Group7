@@ -86,7 +86,7 @@ public class PreferenceRepository {
 		System.exit(0);
 	}
 
-	private static void setupPreferenceWorker(String[] args) {
+	public static void setupPreferenceWorker(String[] args) {
 		communicator = com.zeroc.Ice.Util.initialize(args);
 		com.zeroc.Ice.ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("PreferenceWorker",
 				"default -p 14444");
