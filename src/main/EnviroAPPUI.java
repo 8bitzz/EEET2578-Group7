@@ -67,6 +67,7 @@ public class EnviroAPPUI {
 		communicator = com.zeroc.Ice.Util.initialize(args);
 		System.out.println("Context-aware UV Smart Application");
 		System.out.println("Please enter your user name:");
+
 		Scanner reader = new Scanner(System.in);
 		username = reader.nextLine();
 

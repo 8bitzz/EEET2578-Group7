@@ -14,6 +14,7 @@ public class AllSensors {
 	private Sensor aqiSensor;
 	private Communicator communicator;
 	private MonitorPrx monitor;
+	public Integer secondCouter = 0;
 	
 
 	public AllSensors(String username) {
@@ -72,10 +73,12 @@ public class AllSensors {
 	}
 
 	private SensorData getSensorData() {
+		System.out.printf("---Get sensor data at second %d\n", secondCouter);
 		String location = this.locationSensor.getCurrentValue();
 		int temperature = Integer.parseInt(this.temperatureSensor.getCurrentValue());
 		int uvr = Integer.parseInt(this.aqiSensor.getCurrentValue());
 		SensorData data = new SensorData(this.username, location, temperature, uvr);
+		secondCouter += 1;
 		return data;
 	}
 
