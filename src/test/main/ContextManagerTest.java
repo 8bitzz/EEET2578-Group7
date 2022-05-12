@@ -118,7 +118,7 @@ public class ContextManagerTest {
     @Test
     public void testTickClock() {
         int duration = 5;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < duration; i++) {
             ContextManager.tickClock("Jack");
         }
         assertEquals(duration, ContextManager.users.get("Jack").clock, 0.0000000001);
@@ -126,8 +126,12 @@ public class ContextManagerTest {
 
     @Test
     public void testResetClock() {
-        ContextManager.resetClock("Jack");
-        assertEquals(0, ContextManager.users.get("Jack").clock, 0.0000000001);
+        int duration = 5;
+        for (int i = 0; i < duration; i++) {
+            ContextManager.tickClock("David");
+        }
+        ContextManager.resetClock("David");
+        assertEquals(0, ContextManager.users.get("David").clock, 0.0000000001);
     }
     @Test
     public void testCheckWeather(){

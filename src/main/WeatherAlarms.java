@@ -63,7 +63,7 @@ public class WeatherAlarms {
 		adapter.activate();
 	}
 	
-	private List<Integer> readWeatherConditions(){
+	public List<Integer> readWeatherConditions(){
 		File file = new File("weather_alarms.txt");
 		List<Integer> result = new ArrayList();
 		try {
