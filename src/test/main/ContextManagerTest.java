@@ -140,13 +140,6 @@ public class ContextManagerTest {
     @Test
     public void testAddUser(){
         ContextManagerWorker CM_Worker;
-//        ContextManager.communicator = com.zeroc.Ice.Util.initialize();
-//        ContextManager.cityInfo = ContextManager.readCityInfo();
-//        ContextManager.iniPreferenceWorker();
-//        ContextManager.iniLocationMapper();
-//        ContextManager.iniWeatherAlarmWorker();
-//        ContextManager.runWeatherAlarm();
-//        ContextManager.setupContextManagerWorker();
         CM_Worker = new ContextManager.ContextManagerWorkerI();
         int beforeAddedSize = ContextManager.users.size();
 //        System.out.println("Before added" + ContextManager.users.size());
@@ -157,13 +150,6 @@ public class ContextManagerTest {
     @Test
     public void testDeleteUser(){
         ContextManagerWorker CM_Worker;
-//        ContextManager.communicator = com.zeroc.Ice.Util.initialize();
-//        ContextManager.cityInfo = ContextManager.readCityInfo();
-//        ContextManager.iniPreferenceWorker();
-//        ContextManager.iniLocationMapper();
-//        ContextManager.iniWeatherAlarmWorker();
-//        ContextManager.runWeatherAlarm();
-//        ContextManager.setupContextManagerWorker();
         CM_Worker = new ContextManager.ContextManagerWorkerI();
         int beforeAddedSize = ContextManager.users.size();
         System.out.println("Before deleted" + ContextManager.users.size());
