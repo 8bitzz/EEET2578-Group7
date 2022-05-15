@@ -42,8 +42,7 @@ public class UnitTestingPrefRepo {
 
     @Test
     public void testReadPreference() {
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Test the reading preference file in Preference Repository class");
+        System.out.println("\nTest the reading preference file in Preference Repository class");
         List<Preference> expectedResult = new ArrayList<>();
         List<String> jackPref = new ArrayList<>();
         jackPref.add("name: Jack");

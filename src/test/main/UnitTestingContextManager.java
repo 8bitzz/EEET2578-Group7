@@ -12,13 +12,20 @@ import static org.junit.Assert.*;
 
 public class UnitTestingContextManager {
     public static final Integer NORMAL = 0;
+
     @BeforeClass
     public static void setUpClass() {
         SetupTest.setupService();
     }
 
+//    @Test
+//    public void testCheckWeather(){
+//        ContextManager.checkWeather(NORMAL);
+//    }
+
     @Test
     public void testReadCityInfo() {
+        System.out.println("\nTest CM read city info file");
         List<LocationDetails> cityList = ContextManager.readCityInfo();
         String[] expected_names = {"Vivo City Shopping Centre", "Crescent Mall", "Dam Sen Parklands", "Ho Chi Minh City, Downtown"};
         String[] expected_codes = {"A", "B", "C", "D"};
@@ -38,84 +45,53 @@ public class UnitTestingContextManager {
     }
 
     @Test
-    public void testGetLocationsByService() {
+    public void testGetLocationsByServiceIndoor() {
+        System.out.println("\nTest CM get locations of services provided by INDOOR locations");
         List<String> cinemaLocations = ContextManager.getLocationsByService("cinema");
-        List<String> restaurantLocations = ContextManager.getLocationsByService("restaurants");
-        List<String> poolLocations = ContextManager.getLocationsByService("pool");
-        List<String> shopsLocations = ContextManager.getLocationsByService("shops");
-        List<String> bowlingLocations = ContextManager.getLocationsByService("bowling");
-        List<String> wheelLocations = ContextManager.getLocationsByService("Ferris wheel");
+        String[] expectedLocations = {"Vivo City Shopping Centre", "Crescent Mall"};
+
+        assertEquals(expectedLocations.length, cinemaLocations.size());
+        for (int i = 0; i < cinemaLocations.size(); i++) {
+            assertEquals(expectedLocations[i], cinemaLocations.get(i));
+        }
+    }
+
+    @Test
+    public void testGetLocationsByServiceOutdoor() {
+        System.out.println("\nTest CM get locations of services provided by OUTDOOR locations");
+        List<String> ferrisWheelsLocations = ContextManager.getLocationsByService("Ferris wheel");
         List<String> marketLocations = ContextManager.getLocationsByService("market");
-        assertEquals(2, cinemaLocations.size());
-        assertEquals(2, restaurantLocations.size());
-        assertEquals(1, poolLocations.size());
-        assertEquals(2, shopsLocations.size());
-        assertEquals(1, bowlingLocations.size());
-        assertEquals(0, wheelLocations.size());
+
+        assertEquals(0, ferrisWheelsLocations.size());
         assertEquals(0, marketLocations.size());
     }
 
     @Test
-    public void testCalculateApoThreshhold() {
-        Integer threshold1 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType1GoodAQI());
-        Integer threshold2 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType1ModerateAQI());
-        Integer threshold3 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType1SensitiveAQI());
-        Integer threshold4 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType1UnhealthyAQI());
-        Integer threshold5 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType2GoodAQI());
-        Integer threshold6 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType2ModerateAQI());
-        Integer threshold7 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType2SensitiveAQI());
-        Integer threshold8 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType2UnhealthyAQI());
-        Integer threshold9 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType3GoodAQI());
-        Integer threshold10 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType3ModerateAQI());
-        Integer threshold11 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType3SensitiveAQI());
-        Integer threshold12 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType3UnhealthyAQI());
+    public void testGetLocationsByServiceIndoorOutdoor() {
+        System.out.println("\nTest CM get locations of services provided by INDOOR + OUTDOOR locations");
+        List<String> restaurantLocations = ContextManager.getLocationsByService("restaurants");
+        List<String> poolLocations = ContextManager.getLocationsByService("pool");
+        List<String> shopsLocations = ContextManager.getLocationsByService("shops");
+        List<String> bowlingLocations = ContextManager.getLocationsByService("bowling");
 
-        assertEquals(30, threshold1, 0.00000001);
-        assertEquals(15, threshold2, 0.00000001);
-        assertEquals(10, threshold3, 0.00000001);
-        assertEquals(5, threshold4, 0.00000001);
-        assertEquals(60, threshold5, 0.00000001);
-        assertEquals(30, threshold6, 0.00000001);
-        assertEquals(20, threshold7, 0.00000001);
-        assertEquals(10, threshold8, 0.00000001);
-        assertEquals(90, threshold9, 0.00000001);
-        assertEquals(45, threshold10, 0.00000001);
-        assertEquals(30, threshold11, 0.00000001);
-        assertEquals(15, threshold12, 0.00000001);
+        String[] expectedLocations = {"Vivo City Shopping Centre", "Crescent Mall"};
+
+        assertEquals(2, restaurantLocations.size());
+        assertEquals(2, shopsLocations.size());
+        for (int i = 0; i < 2; i++) {
+            assertEquals(expectedLocations[i], restaurantLocations.get(i));
+            assertEquals(expectedLocations[i], shopsLocations.get(i));
+        }
+
+        assertEquals(1, poolLocations.size());
+        assertEquals(1, bowlingLocations.size());
+        assertEquals("Vivo City Shopping Centre", poolLocations.get(0));
+        assertEquals("Vivo City Shopping Centre", bowlingLocations.get(0));
     }
 
     @Test
-    public void testCheckTempReached() {
-        // Temperature threshold is reached
-        User user1 = UserFactory.buildUserType1GoodAQI();
-        assertTrue(ContextManager.checkTempReached(user1));
-
-        // Temperature threshold is not reached
-        User user2 = UserFactory.buildUserType1ModerateAQI();
-        assertFalse(ContextManager.checkTempReached(user2));
-
-        // Negative temperature threshold is reached
-        User user3 = UserFactory.buildUserType1SensitiveAQI();
-        assertTrue(ContextManager.checkTempReached(user3));
-
-        // No predefined temperature threshold - TEST FAILED
-//        User user4 = UserFactory.buildUserType1UnhealthyAQI();
-//        assertTrue(ContextManager.checkTempReached(user4));
-    }
-
-    @Test
-    public void testCheckApoReached() {
-        // APO threshold is reached
-        User user1 = UserFactory.buildUserType1GoodAQI();
-        assertTrue(ContextManager.checkapoReached(user1));
-
-        // APO threshold is reached
-        User user2 = UserFactory.buildUserType1ModerateAQI();
-        assertFalse(ContextManager.checkapoReached(user2));
-    }
-
-    @Test
-    public void testTickClock() {
+    public void testTickClockForValidUser() {
+        System.out.println("\nTest tick clock for VALID user");
         int duration = 5;
         for (int i = 0; i < duration; i++) {
             ContextManager.tickClock("Jack");
@@ -124,7 +100,18 @@ public class UnitTestingContextManager {
     }
 
     @Test
-    public void testResetClock() {
+    public void testTickClockForInvalidUser() {
+        System.out.println("\nTest tick clock for INVALID user");
+        int duration = 5;
+        for (int i = 0; i < duration; i++) {
+            ContextManager.tickClock("Invalid user");
+        }
+        assertEquals(null, ContextManager.users.get("Invalid user").clock);
+    }
+
+    @Test
+    public void testResetClockValidUser() {
+        System.out.println("\nTest reset clock for VALID user");
         int duration = 5;
         for (int i = 0; i < duration; i++) {
             ContextManager.tickClock("David");
@@ -132,27 +119,104 @@ public class UnitTestingContextManager {
         ContextManager.resetClock("David");
         assertEquals(0, ContextManager.users.get("David").clock, 0.0000000001);
     }
+
     @Test
-    public void testCheckWeather(){
-        ContextManager.checkWeather(NORMAL);
-    }
-    @Test
-    public void testAddUser(){
-        ContextManagerWorker CM_Worker;
-        CM_Worker = new ContextManager.ContextManagerWorkerI();
-        int beforeAddedSize = ContextManager.users.size();
-//        System.out.println("Before added" + ContextManager.users.size());
-        CM_Worker.addUser("Minh", null);
-        assertEquals(ContextManager.users.size(),beforeAddedSize+1);
+    public void testResetClockInvalidUser() {
+        System.out.println("\nTest reset clock for INVALID user");
+        int duration = 5;
+        for (int i = 0; i < duration; i++) {
+            ContextManager.tickClock("Hang");
+        }
+        ContextManager.resetClock("Hang");
+        assertEquals(null, ContextManager.users.get("Hang").clock);
     }
 
     @Test
-    public void testDeleteUser(){
-        ContextManagerWorker CM_Worker;
-        CM_Worker = new ContextManager.ContextManagerWorkerI();
-        int beforeAddedSize = ContextManager.users.size();
-        System.out.println("Before deleted" + ContextManager.users.size());
-        CM_Worker.deleteUser("Jack", null);
-        assertEquals(ContextManager.users.size(),beforeAddedSize-1);
+    public void testCheckTempReached() {
+        System.out.println("\nTest check temperature threshold when temp REACHED threshold");
+        // Positive temperature threshold is reached
+        User user1 = UserFactory.buildUserType1GoodAQI();
+        assertTrue(ContextManager.checkTempReached(user1));
+
+        // Negative temperature threshold is reached
+        User user3 = UserFactory.buildUserType1SensitiveAQI();
+        assertTrue(ContextManager.checkTempReached(user3));
     }
+
+    @Test
+    public void testCheckTempNotReached() {
+        System.out.println("\nTest check temperature threshold when temp NOT REACHED threshold");
+        User user2 = UserFactory.buildUserType1ModerateAQI();
+        assertFalse(ContextManager.checkTempReached(user2));
+    }
+
+    @Test
+    public void testCheckTempReachedWhenNoPredefinedThreshold() {
+        System.out.println("\nTest check temperature threshold when user has NO PREDEFINED threshold");
+        User user4 = UserFactory.buildUserType1UnhealthyAQI();
+        assertTrue(ContextManager.checkTempReached(user4));
+    }
+
+    @Test
+    public void testCheckApoReached() {
+        System.out.println("\nTest check APO threshold when APO threshold is REACHED");
+        User user1 = UserFactory.buildUserType1GoodAQI();
+        assertTrue(ContextManager.checkapoReached(user1));
+    }
+
+    @Test
+    public void testCheckApoNotReached() {
+        System.out.println("\nTest check APO threshold when APO threshold is NOT REACHED");
+        User user2 = UserFactory.buildUserType1ModerateAQI();
+        assertFalse(ContextManager.checkapoReached(user2));
+    }
+
+    @Test
+    public void testCalculateApoThreshholdGoodAirQuality() {
+        System.out.println("\nTest calculate APO threshold in GOOD air quality");
+        Integer threshold1 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType1GoodAQI());
+        Integer threshold2 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType2GoodAQI());
+        Integer threshold3 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType3GoodAQI());
+
+        assertEquals(30, threshold1, 0.00000001);
+        assertEquals(60, threshold2, 0.00000001);
+        assertEquals(90, threshold3, 0.00000001);
+    }
+
+    @Test
+    public void testCalculateApoThreshholdModerateAirQuality() {
+        System.out.println("\nTest calculate APO threshold in MODERATE air quality");
+        Integer threshold1 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType1ModerateAQI());
+        Integer threshold2 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType2ModerateAQI());
+        Integer threshold3 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType3ModerateAQI());
+
+        assertEquals(15, threshold1, 0.00000001);
+        assertEquals(30, threshold2, 0.00000001);
+        assertEquals(45, threshold3, 0.00000001);
+    }
+
+    @Test
+    public void testCalculateApoThreshholdSensitiveAirQuality() {
+        System.out.println("\nTest calculate APO threshold in SENSITIVE air quality");
+        Integer threshold3 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType1SensitiveAQI());
+        Integer threshold7 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType2SensitiveAQI());
+        Integer threshold11 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType3SensitiveAQI());
+
+        assertEquals(10, threshold3, 0.00000001);
+        assertEquals(20, threshold7, 0.00000001);
+        assertEquals(30, threshold11, 0.00000001);
+    }
+
+    @Test
+    public void testCalculateApoThreshholdUnhealthyAirQuality() {
+        System.out.println("\nTest calculate APO threshold in UNHEALTHY air quality");
+        Integer threshold4 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType1UnhealthyAQI());
+        Integer threshold8 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType2UnhealthyAQI());
+        Integer threshold12 = ContextManager.calculateapoThreshhold(UserFactory.buildUserType3UnhealthyAQI());
+
+        assertEquals(5, threshold4, 0.00000001);
+        assertEquals(10, threshold8, 0.00000001);
+        assertEquals(15, threshold12, 0.00000001);
+    }
+
 }
