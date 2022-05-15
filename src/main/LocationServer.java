@@ -31,6 +31,7 @@ public class LocationServer {
 		table = readConfig();
 		setupLocationWorker(args);
 		System.out.println("Location Server is running!");
+		System.out.println(table.get("A"));
 		communicator.waitForShutdown();
 		System.exit(0);
 	}

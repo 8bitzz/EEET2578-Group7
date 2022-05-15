@@ -8,6 +8,8 @@ import support.LocationDetails;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
@@ -61,30 +63,60 @@ public class UnitTestingContextManagerWorker {
     @Test
     public void testSearchInfoExistingItem() {
         System.out.println("\nTest CMWorker search info an EXISTING item");
-        ContextManagerWorker CM_Worker;
-        CM_Worker = new ContextManager.ContextManagerWorkerI();
         String[] itemsList = {"Vivo City Shopping Centre", "Crescent Mall", "Dam Sen Parklands", "Ho Chi Minh City, Downtown"};
         for (int i = 0; i < itemsList.length; i++) {
-            assertEquals(ContextManager.cityInfo.get(i).getInfo(), CM_Worker.searchInfo(itemsList[i], new Current()));
+            assertEquals(ContextManager.cityInfo.get(i).getInfo(), SetupTest.CM_Worker.searchInfo(itemsList[i], new Current()));
         }
     }
 
     @Test
     public void testSearchInfoNonExistingItem() {
         System.out.println("\nTest CMWorker search info a NON-EXISTING item");
-        ContextManagerWorker CM_Worker;
-        CM_Worker = new ContextManager.ContextManagerWorkerI();
+        assertEquals(null, SetupTest.CM_Worker.searchInfo("RMIT University", new Current()));
+    }
 
-        assertEquals(null, CM_Worker.searchInfo("RMIT University", new Current()));
+    private CountDownLatch lock = new CountDownLatch(1);
+
+    @Test
+    public void testSearchItemValidUser() throws Exception {
+        System.out.println("\nTest CMWorker search item for VALID user");
+        String[] expectedResult = {"Dam Sen Parklands"};
+
+        // Need to delay 1000 since the code run asynchronously
+        new java.util.Timer().schedule(
+            new java.util.TimerTask() {
+                @Override
+                public void run() {
+                // your code here
+                String[] actualResult = SetupTest.CM_Worker.searchItems("Jack", null);
+                assertEquals(expectedResult[0], actualResult[0]);
+                }
+            },
+            1000
+        );
+
+        lock.await(2000, TimeUnit.MILLISECONDS);
     }
 
     @Test
-    public void testSearchItemValidUser() {
+    public void testSearchItemInvalidUser() throws Exception {
         System.out.println("\nTest CMWorker search item for VALID user");
-        String[] expectedResult = {"Vivo City Shopping Centre"};
-        String[] actualResult = SetupTest.CM_Worker.searchItems("Jack", null);
+        String[] expectedResult = {"Dam Sen Parklands"};
 
-        assertEquals(expectedResult.length, actualResult.length);
+        // Need to delay 1000 since the code run asynchronously
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        // your code here
+                        String[] actualResult = SetupTest.CM_Worker.searchItems("Invalid", null);
+                        assertEquals(expectedResult[0], actualResult[0]);
+                    }
+                },
+                1000
+        );
+
+        lock.await(2000, TimeUnit.MILLISECONDS);
     }
 
 }
