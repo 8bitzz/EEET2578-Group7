@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CM_PrefRepository_IntegrationTest {
+public class IntegrationTesting_CM_PrefRepo {
 
     @BeforeClass
     public static void setUpClass() {

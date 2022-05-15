@@ -1,12 +1,11 @@
 package main;
 
 import helper.SensorData;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AllSensorsTest {
+public class UnitTestingAllSensors {
     private AllSensors sensors = new AllSensors("Jack");
 
     @Test

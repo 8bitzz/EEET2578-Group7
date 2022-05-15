@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class LocationServerTest {
+public class UnitTestingLocationServer {
     public static List<LocationDetails> cityInfo = ContextManager.readCityInfo();
     public static LocationWorkerPrx locationWorker;
     public static final String INDOOR = "Indoor";

@@ -1,16 +1,12 @@
 package main;
 import com.zeroc.Ice.Current;
 import helper.PreferenceRequest;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 import static main.ContextManager.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class unitTestingPrefRepoWorker {
+public class UnitTestingPrefRepoWorker {
 
     private final PreferenceRepository.PreferenceWorkerI preferenceWorkerI = new  PreferenceRepository.PreferenceWorkerI();
 

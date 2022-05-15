@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class CM_LocationServer_IntegrationTest {
+public class IntegrationTesting_CM_LocationServer {
     @BeforeClass
     public static void setUpClass() {
         SetupTest.setupService();

@@ -1,7 +1,6 @@
 package main;
 
 import helper.ContextManagerWorker;
-import helper.SensorData;
 import helper.User;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 
-public class ContextManagerTest {
+public class UnitTestingContextManager {
     public static final Integer NORMAL = 0;
     @BeforeClass
     public static void setUpClass() {

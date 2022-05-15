@@ -2,13 +2,12 @@ package main;
 
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class WeatherAlarmsTest {
+public class UnitTestingWeatherAlarms {
     public static WeatherAlarms alarms = new WeatherAlarms();
 
     @Test
