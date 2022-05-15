@@ -12,6 +12,7 @@ public class UnitTestingWeatherAlarms {
 
     @Test
     public void testReadWeatherConditions() {
+        System.out.println("\nTest Weather Alarms read weather_alarms file");
         List<Integer> expectedResult = Arrays.asList(0, 1, 2, 3);
         List<Integer> actualResult = alarms.readWeatherConditions();
 

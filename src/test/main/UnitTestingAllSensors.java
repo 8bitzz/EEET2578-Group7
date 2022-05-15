@@ -6,10 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class UnitTestingAllSensors {
-    private AllSensors sensors = new AllSensors("Jack");
+    AllSensors sensors = new AllSensors("Jack");
 
     @Test
-    public void testGetSensorData() {
+    public void testGetSensorDataForCurrentUser() {
+        System.out.println("\nTest Get sensor data for current user");
         String expectedName = "Jack";
         String expectedLocation = "A";
         int expectedTemperature = 10;
