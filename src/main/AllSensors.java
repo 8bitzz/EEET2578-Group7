@@ -72,7 +72,6 @@ public class AllSensors {
 	}
 
 	public SensorData getSensorData() {
-		System.out.println("----------Get sensor data--------");
 		String location = this.locationSensor.getCurrentValue();
 		int temperature = Integer.parseInt(this.temperatureSensor.getCurrentValue());
 		int uvr = Integer.parseInt(this.aqiSensor.getCurrentValue());

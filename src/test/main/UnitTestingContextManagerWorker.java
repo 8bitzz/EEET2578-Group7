@@ -1,12 +1,18 @@
 package main;
 
+import com.zeroc.Ice.Current;
 import helper.ContextManagerWorker;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import support.LocationDetails;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class UnitTestingContextManagerWorker {
+
     @BeforeClass
     public static void setUpClass() {
         SetupTest.setupService();
@@ -51,4 +57,34 @@ public class UnitTestingContextManagerWorker {
         CM_Worker.deleteUser("Hang", null);
         assertEquals(ContextManager.users.size(),beforeDeleteSize);
     }
+
+    @Test
+    public void testSearchInfoExistingItem() {
+        System.out.println("\nTest CMWorker search info an EXISTING item");
+        ContextManagerWorker CM_Worker;
+        CM_Worker = new ContextManager.ContextManagerWorkerI();
+        String[] itemsList = {"Vivo City Shopping Centre", "Crescent Mall", "Dam Sen Parklands", "Ho Chi Minh City, Downtown"};
+        for (int i = 0; i < itemsList.length; i++) {
+            assertEquals(ContextManager.cityInfo.get(i).getInfo(), CM_Worker.searchInfo(itemsList[i], new Current()));
+        }
+    }
+
+    @Test
+    public void testSearchInfoNonExistingItem() {
+        System.out.println("\nTest CMWorker search info a NON-EXISTING item");
+        ContextManagerWorker CM_Worker;
+        CM_Worker = new ContextManager.ContextManagerWorkerI();
+
+        assertEquals(null, CM_Worker.searchInfo("RMIT University", new Current()));
+    }
+
+    @Test
+    public void testSearchItemValidUser() {
+        System.out.println("\nTest CMWorker search item for VALID user");
+        String[] expectedResult = {"Vivo City Shopping Centre"};
+        String[] actualResult = SetupTest.CM_Worker.searchItems("Jack", null);
+
+        assertEquals(expectedResult.length, actualResult.length);
+    }
+
 }

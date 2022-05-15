@@ -7,9 +7,9 @@ import helper.ContextManagerWorker;
 import helper.*;
 
 public class SetupTest {
-
+    public static AllSensors allSensors;
     static Boolean isAlreadySetup = false;
-    private static ContextManagerWorker CM_Worker;
+    static ContextManagerWorker CM_Worker;
 
     static void setupService() {
 
@@ -25,6 +25,10 @@ public class SetupTest {
         ContextManager.runWeatherAlarm();
         ContextManager.setupContextManagerWorker();
         CM_Worker = new ContextManager.ContextManagerWorkerI();
+
+        allSensors = new AllSensors("Jack");
+        allSensors.run();
+
         CM_Worker.addUser("Jack", null);
         CM_Worker.addUser("David", null);
 
