@@ -33,46 +33,16 @@ public class UnitTestingPrefRepo {
 
         return Arrays.asList(new Object[][] {
                 {"Jack" , 30 , 0 , "pool", "bowling" , "cinema"},
-                {"Jack" , 30 , 1 , "pool", "bowling" , "cinema"},
-                {"Jack" , 30 , 2 , "pool", "bowling" , "cinema"},
-                {"Jack" , 30 , 3 , "pool", "bowling" , "cinema"},
-                {"Jack" , 30 , 4 , "pool", "bowling" , "cinema"},
+//                {"Jack" , 30 , 1 , "pool", "bowling" , "cinema"},
+//                {"Jack" , 30 , 2 , "pool", "bowling" , "cinema"},
+//                {"Jack" , 30 , 3 , "pool", "bowling" , "cinema"},
+//                {"Jack" , 30 , 4 , "pool", "bowling" , "cinema"},
         });
     }
 
     @Test
-    public void testGettingSuggestionTemp () {
-        System.out.println("Test getting temperature suggestion from Preference Repository");
-        PreferenceRepository.preferences = PreferenceRepository.readPreference();
-        assertEquals(temperatureSuggestion, PreferenceRepository.getSuggestionTemp(username , temperature));
-        System.out.println("Expected output: " + temperatureSuggestion);
-        System.out.println("Real output: " +PreferenceRepository.getSuggestionTemp(username , temperature) );
-    }
-
-    @Test
-    public void testGettingSuggestionWeather () {
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Test getting weather suggestion from Preference Repository");
-        PreferenceRepository.preferences = PreferenceRepository.readPreference();
-        assertEquals(weatherSuggestion , PreferenceRepository.getSuggestionWeather(username , weather));
-        System.out.println("Expected output: " + weatherSuggestion);
-        System.out.println("Real output: " +PreferenceRepository.getSuggestionWeather(username , weather) );
-    }
-
-    @Test
-    public void testGettingSuggestionAPO () {
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Test getting temperature suggestion from Preference Repository");
-        PreferenceRepository.preferences = PreferenceRepository.readPreference();
-        assertEquals(apoSuggestion , PreferenceRepository.getSuggestionAPO(username ));
-        System.out.println("Expected output:" + apoSuggestion);
-        System.out.println("Real output: " +PreferenceRepository.getSuggestionAPO(username) );
-    }
-
-    @Test
     public void testReadPreference() {
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Test the reading preference file in Preference Repository class");
+        System.out.println("\nTest the reading preference file in Preference Repository class");
         List<Preference> expectedResult = new ArrayList<>();
         List<String> jackPref = new ArrayList<>();
         jackPref.add("name: Jack");
@@ -89,12 +59,154 @@ public class UnitTestingPrefRepo {
         davidPref.add("pref: when APO suggest cinema");
         davidPref.add("pref: when weather suggest shops");
 
-
         expectedResult.add(new Preference(jackPref));
         expectedResult.add(new Preference(davidPref));
 
         assertEquals(expectedResult.toString() , PreferenceRepository.readPreference().toString());
-        System.out.println("Expected output: " + expectedResult);
-        System.out.println("Real output: " + PreferenceRepository.readPreference());
+        System.out.println("Expected result: " + expectedResult);
+        System.out.println("Actual result: " + PreferenceRepository.readPreference());
+    }
+
+    // testMissingPreferenceFile is executed as UAT testing since we need the Preference file for other unit testings
+
+    @Test
+    public void testGetTempSuggestionWhenNotReachedThreshold() {
+        System.out.println("\nTest getting temperature suggestion when temperature value is LOWER THAN threshold value");
+        String user = "Jack";
+        int currentTemp =  0;
+        String expectedSuggestion = null;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion, PreferenceRepository.getSuggestionTemp(user , currentTemp));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionTemp(user , currentTemp));
+    }
+
+    @Test
+    public void testGetTempSuggestionWhenThresholdReached() {
+        System.out.println("\nTest getting temperature suggestion when temperature value is EQUALS TO threshold value");
+        String user = "Jack";
+        int temp1 =  20;
+        int temp2 =  30;
+        String expectedSuggestion1 = "shops";
+        String expectedSuggestion2 = "pool";
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion1, PreferenceRepository.getSuggestionTemp(user , temp1));
+        assertEquals(expectedSuggestion2, PreferenceRepository.getSuggestionTemp(user , temp2));
+        System.out.printf("Expected result 1: %s\n", expectedSuggestion1);
+        System.out.printf("Actual result 1: %s\n", PreferenceRepository.getSuggestionTemp(user , temp1));
+        System.out.printf("Expected result 2: %s\n", expectedSuggestion2);
+        System.out.printf("Actual result 2: %s\n", PreferenceRepository.getSuggestionTemp(user , temp2));
+    }
+
+    @Test
+    public void testGetTempSuggestionWhenTempHigherThanBothThresholds() {
+        System.out.println("\nTest getting temperature suggestion when temperature value is GREATER THAN BOTH threshold values");
+        String user = "Jack";
+        int currentTemp = 35;
+        String expectedSuggestion = "pool";
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion, PreferenceRepository.getSuggestionTemp(user , currentTemp));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionTemp(user , currentTemp));
+    }
+
+    @Test
+    public void testGetTempSuggestionForInvalidUser() {
+        System.out.println("\nTest getting temperature suggestion for INVALID user");
+        String user = "Fake user";
+        int currentTemp = 20;
+        String expectedSuggestion = null;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion, PreferenceRepository.getSuggestionTemp(user , currentTemp));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionTemp(user , currentTemp));
+    }
+
+    @Test
+    public void testGetTempSuggestionWhenTempBetweenThresholds() {
+        System.out.println("\nTest getting temperature suggestion when temperature value is BETWEEN 2 threshold values");
+        String user = "Jack";
+        int currentTemp = 25;
+        String expectedSuggestion = "shops";
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion, PreferenceRepository.getSuggestionTemp(user , currentTemp));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionTemp(user , currentTemp));
+    }
+
+    @Test
+    public void testGetAPOSuggestionForValidUser () {
+        System.out.println("\nTest getting APO suggestion for VALID user");
+        String user = "Jack";
+        String expectedSuggestion = "bowling";
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion , PreferenceRepository.getSuggestionAPO(user));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionAPO(user));
+    }
+
+    @Test
+    public void testGetAPOSuggestionForInvalidUser () {
+        System.out.println("\nTest getting APO suggestion for INVALID user");
+        String user = "Invalid user";
+        String expectedSuggestion = null;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion , PreferenceRepository.getSuggestionAPO(user));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionAPO(user));
+    }
+
+    @Test
+    public void testGetWeatherSuggestionNormalCondition() {
+        System.out.println("\nTest getting weather suggestion in NORMAL weather");
+        String user = "Jack";
+        int weatherValue = 0;
+        String expectedSuggestion = null;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion , PreferenceRepository.getSuggestionWeather(user , weatherValue));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionWeather(user , weatherValue));
+    }
+
+    @Test
+    public void testGetWeatherSuggestionExtremeCondition() {
+        System.out.println("\nTest getting weather suggestion in HEAVY RAIN, HAIL STORM, STRONG WIND weather");
+        String user = "Jack";
+        int weatherValue1 = 1;
+        int weatherValue2 = 2;
+        int weatherValue3 = 3;
+        String expectedSuggestion = "cinema";
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion , PreferenceRepository.getSuggestionWeather(user , weatherValue1));
+        assertEquals(expectedSuggestion , PreferenceRepository.getSuggestionWeather(user , weatherValue2));
+        assertEquals(expectedSuggestion , PreferenceRepository.getSuggestionWeather(user , weatherValue3));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result 1: %s\n", PreferenceRepository.getSuggestionWeather(user , weatherValue1));
+        System.out.printf("Actual result 2: %s\n", PreferenceRepository.getSuggestionWeather(user , weatherValue2));
+        System.out.printf("Actual result 3: %s\n", PreferenceRepository.getSuggestionWeather(user , weatherValue3));
+    }
+
+    @Test
+    public void testGetWeatherSuggestionInvalidValue() {
+        System.out.println("\nTest getting weather suggestion for INVALID weather value");
+        String user = "Jack";
+        int weatherValue = 10;
+        String expectedSuggestion = null;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion , PreferenceRepository.getSuggestionWeather(user , weatherValue));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionWeather(user , weatherValue));
+    }
+
+    @Test
+    public void testGetWeatherWeatherSuggestionInvalidUser() {
+        System.out.println("\nTest getting weather suggestion for INVALID user");
+        String user = "Invalid user";
+        int weatherValue = 1;
+        String expectedSuggestion = null;
+        PreferenceRepository.preferences = PreferenceRepository.readPreference();
+        assertEquals(expectedSuggestion , PreferenceRepository.getSuggestionWeather(user , weatherValue));
+        System.out.printf("Expected result: %s\n", expectedSuggestion);
+        System.out.printf("Actual result: %s\n", PreferenceRepository.getSuggestionWeather(user , weatherValue));
     }
 }
