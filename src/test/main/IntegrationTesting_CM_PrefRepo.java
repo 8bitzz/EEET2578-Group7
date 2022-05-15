@@ -197,11 +197,10 @@ public class IntegrationTesting_CM_PrefRepo {
         String service = "restaurants";
         List<LocationDetails> cityInfo = ContextManager.readCityInfo();
         List<String> locations = ContextManager.getLocationsByService(service);
-        System.out.println(locations.size());
+
         for (LocationDetails locationDetails : cityInfo){
             for (String location : locations){
                 if (locationDetails.getName().equals(location)) {
-                    System.out.println(location + " - " + locationDetails.getName());
                     assertTrue(Arrays.asList(locationWithRestaurant).contains(locationDetails.getName()));
                     assertTrue(locationDetails.getServices().contains(service));
                 }
@@ -216,11 +215,9 @@ public class IntegrationTesting_CM_PrefRepo {
         String service = "cinema";
         List<LocationDetails> cityInfo = ContextManager.readCityInfo();
         List<String> locations = ContextManager.getLocationsByService(service);
-        System.out.println(locations.size());
         for (LocationDetails locationDetails : cityInfo){
             for (String location : locations){
                 if (locationDetails.getName().equals(location)) {
-                    System.out.println(location + " - " + locationDetails.getName());
                     assertTrue(Arrays.asList(locationWithCinema).contains(locationDetails.getName()));
                     assertTrue(locationDetails.getServices().contains(service));
                 }
@@ -235,12 +232,10 @@ public class IntegrationTesting_CM_PrefRepo {
         String service = "pool";
         List<LocationDetails> cityInfo = ContextManager.readCityInfo();
         List<String> locations = ContextManager.getLocationsByService(service);
-        System.out.println(locations.size());
-//
+
         for (LocationDetails locationDetails : cityInfo){
             for (String location : locations){
                 if (locationDetails.getName().equals(location)) {
-                    System.out.println(location + " - " + locationDetails.getName());
                     assertTrue(Arrays.asList(locationWithPool).contains(locationDetails.getName()));
                     assertTrue(locationDetails.getServices().contains(service));
                 }
@@ -255,12 +250,10 @@ public class IntegrationTesting_CM_PrefRepo {
         String service = "shops";
         List<LocationDetails> cityInfo = ContextManager.readCityInfo();
         List<String> locations = ContextManager.getLocationsByService(service);
-        System.out.println(locations.size());
-//
+
         for (LocationDetails locationDetails : cityInfo){
             for (String location : locations){
                 if (locationDetails.getName().equals(location)) {
-                    System.out.println(location + " - " + locationDetails.getName());
                     assertTrue(Arrays.asList(locationWithShops).contains(locationDetails.getName()));
                     assertTrue(locationDetails.getServices().contains(service));
                 }
@@ -275,12 +268,10 @@ public class IntegrationTesting_CM_PrefRepo {
         String service = "Ferris wheel";
         List<LocationDetails> cityInfo = ContextManager.readCityInfo();
         List<String> locations = ContextManager.getLocationsByService(service);
-        System.out.println(locations.size());
-//
+
         for (LocationDetails locationDetails : cityInfo){
             for (String location : locations){
                 if (locationDetails.getName().equals(location)) {
-                    System.out.println(location + " - " + locationDetails.getName());
                     assertTrue(Arrays.asList(locationWithShops).contains(locationDetails.getName()));
                     assertTrue(locationDetails.getServices().contains(service));
                 }
@@ -295,12 +286,10 @@ public class IntegrationTesting_CM_PrefRepo {
         String service = "market";
         List<LocationDetails> cityInfo = ContextManager.readCityInfo();
         List<String> locations = ContextManager.getLocationsByService(service);
-        System.out.println(locations.size());
-//
+
         for (LocationDetails locationDetails : cityInfo){
             for (String location : locations){
                 if (locationDetails.getName().equals(location)) {
-                    System.out.println(location + " - " + locationDetails.getName());
                     assertTrue(Arrays.asList(locationWithShops).contains(locationDetails.getName()));
                     assertTrue(locationDetails.getServices().contains(service));
                 }
