@@ -128,4 +128,23 @@ public class CM_LocationServer_IntegrationTest {
         }
         assertEquals(locationWithShops.length,locations.size());
     }
+    @Test
+    public void testLocationSuggestion7(){
+        final String[] locationWithBowling= {"Vivo City Shopping Centre"};
+        String service = "bowling";
+        List<LocationDetails> cityInfo = ContextManager.readCityInfo();
+        List<String> locations = ContextManager.getLocationsByService(service);
+        System.out.println(locations.size());
+//
+        for (LocationDetails locationDetails : cityInfo){
+            for (String location : locations){
+                if (locationDetails.getName().equals(location)) {
+                    System.out.println(location + " - " + locationDetails.getName());
+                    assertTrue(Arrays.asList(locationWithBowling).contains(locationDetails.getName()));
+                    assertTrue(locationDetails.getServices().contains(service));
+                }
+            }
+        }
+        assertEquals(locationWithBowling.length,locations.size());
+    }
 }
