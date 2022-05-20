@@ -91,51 +91,10 @@ public class UnitTestingPrefRepoWorker {
     public void testGetPreferenceWeatherTempThresholdReached() {
         System.out.println("\nTest get preference when Temperature threshold is NOT reached");
         PreferenceRequest request = new PreferenceRequest("Jack",1 , "35");
-        String expectedPreference = "cinema";
+        String expectedPreference = "pool";
         assertEquals(expectedPreference, preferenceWorkerI.getPreference(request, new Current()));
         System.out.printf("Expected result: %s\n", expectedPreference);
         System.out.printf("Actual result: %s\n", preferenceWorkerI.getPreference(request, new Current()));
     }
 
-//    @Test
-//    public void userPreferenceTesting (){
-//        System.out.println("\nTest get user info for INVALID user");
-//        System.out.println("Preference validation 1:");
-//        assertEquals("cinema",preferenceWorkerI.getPreference(new PreferenceRequest("Jack",0 , ""), new Current()));
-//        System.out.println("Expected result:  cinema" );
-//        System.out.println("Actual result: " + preferenceWorkerI.getPreference(new PreferenceRequest("Jack",0 , ""), new Current()));
-//        System.out.println();
-//        System.out.println("Preference validation 2:");
-//        assertEquals("cinema",preferenceWorkerI.getPreference(new PreferenceRequest("Jack",1 , ""), new Current()));
-//        System.out.println("Expected result:  cinema" );
-//        System.out.println("Actual result: " + preferenceWorkerI.getPreference(new PreferenceRequest("Jack",1 , ""), new Current()));
-//        System.out.println();
-//    }
-//
-//    @Test
-//    public void preferenceApoBased(){
-//        System.out.println("Preference Test based on APO");
-//        assertEquals("bowling",preferenceWorkerI.getPreference(new PreferenceRequest("Jack",0 , "APO"), new Current()));
-//        System.out.println("Expected result:  cinema" );
-//        System.out.println("Actual result: " + preferenceWorkerI.getPreference(new PreferenceRequest("Jack",0 , "APO"), new Current()));
-//        System.out.println();
-//    }
-//
-//    @Test
-//    public void preferenceTempBased (){
-//        System.out.println("Preference test based on Temp:");
-//        assertEquals("pool",preferenceWorkerI.getPreference(new PreferenceRequest("Jack",0 , "30"), new Current()));
-//        System.out.println("Expected result:  pool" );
-//        System.out.println("Actual result: " + preferenceWorkerI.getPreference(new PreferenceRequest("Jack",0 , "30"), new Current()));
-//        System.out.println();
-//    }
-//
-//    @Test
-//    public void preferenceNotTempBased (){
-//        System.out.println("Test preference should be got");
-//        assertEquals("pool",preferenceWorkerI.getPreference(new PreferenceRequest("Jack",0 , "31"), new Current()));
-//        System.out.println("Expected result: " + "");
-//        System.out.println("Actual result: " + preferenceWorkerI.getPreference(new PreferenceRequest("Jack",0 , "31"), new Current()));
-//        System.out.println();
-//    }
 }

@@ -87,7 +87,6 @@ public class UnitTestingContextManagerWorker {
             new java.util.TimerTask() {
                 @Override
                 public void run() {
-                // your code here
                 String[] actualResult = SetupTest.CM_Worker.searchItems("Jack", null);
                 assertEquals(expectedResult[0], actualResult[0]);
                 }
@@ -100,20 +99,19 @@ public class UnitTestingContextManagerWorker {
 
     @Test
     public void testSearchItemInvalidUser() throws Exception {
-        System.out.println("\nTest CMWorker search item for VALID user");
+        System.out.println("\nTest CMWorker search item for INVALID user");
         String[] expectedResult = {"Dam Sen Parklands"};
 
         // Need to delay 1000 since the code run asynchronously
         new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        // your code here
-                        String[] actualResult = SetupTest.CM_Worker.searchItems("Invalid", null);
-                        assertEquals(expectedResult[0], actualResult[0]);
-                    }
-                },
-                1000
+            new java.util.TimerTask() {
+                @Override
+                public void run() {
+                    String[] actualResult = SetupTest.CM_Worker.searchItems("Invalid", null);
+                    assertEquals(expectedResult[0], actualResult[0]);
+                }
+            },
+            1000
         );
 
         lock.await(2000, TimeUnit.MILLISECONDS);

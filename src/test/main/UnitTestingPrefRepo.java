@@ -67,8 +67,6 @@ public class UnitTestingPrefRepo {
         System.out.println("Actual result: " + PreferenceRepository.readPreference());
     }
 
-    // testMissingPreferenceFile is executed as UAT testing since we need the Preference file for other unit testings
-
     @Test
     public void testGetTempSuggestionWhenNotReachedThreshold() {
         System.out.println("\nTest getting temperature suggestion when temperature value is LOWER THAN threshold value");
